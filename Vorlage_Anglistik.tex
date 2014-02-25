@@ -1,0 +1,142 @@
+% KOMA-Script Klasse für Report Din-A4 Papiergröße, 12pt Schriftgröße
+\documentclass[12pt]{scrreprt}
+% Paket für deutsche und englische Formate, Übersetzungen und Worttrennung 
+% (Standardmäßig deutsch)
+\usepackage [english,ngerman]{babel}
+% Für geschachtelte Zitate
+\usepackage[autostyle]{csquotes}
+% Paket für Bedingungen (siehe unten) in *LaTeX
+\usepackage{iftex}
+% Pakete u.a. für die Darstellung von Umlauten/Sonderzeichen
+\ifPDFTeX
+   \usepackage[utf8]{inputenc}
+   \usepackage[T1]{fontenc}
+   \usepackage{lmodern}
+\else
+   \ifXeTeX
+     \usepackage{xltxtra}
+   \else 
+     \usepackage{luatextra}
+   \fi
+   \defaultfontfeatures{Ligatures=TeX}
+\fi
+% Eineinhalbfacher Zeilenabstand
+\usepackage[onehalfspacing]{setspace}
+% Papiergröße und Ränder
+\usepackage[a4paper, left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+% Zugriff auf Titelinformationen
+\usepackage{titling}
+% Erweiterte Quotation-Umgebungen (small ist ~11pt bei 12pt im Dokument)
+\usepackage[leftmargin=2.5cm,font={small,singlespacing}]{quoting}
+% Für das Setzen von Versen
+\usepackage{verse}
+% Für die Bibliographie
+% Der Chicago-Stil benötigt eine sehr aktuelle BibLaTex-Version (aktuell 2.8a)
+% Üblicherweise muss für ein funktionierendes Literaturverzeichnis zunächst
+% *LaTeX ausgeführt werden (muss bei jeder Änderungen der Verweise neu ausgeführt werden
+% und erstellt eine .bcf-Datei), dann Biber mit der so entstandenen .bcf-Datei (muss bei jeder Änderung
+% in der Bibliographie neu ausgeführt werden) und zum Schluss nocheinmal *LaTeX
+\usepackage[backend=biber,style=chicago-authordate,language=english,maxnames=5,cmsdate=off]{biblatex}
+\addbibresource{Vorlage_Anglistik.bib}
+
+% Zufälliger Blindtext (kann für die eigentliche Arbeit entfernt werden)
+\usepackage{blindtext}
+
+% Linker Abstand bei Aufzählungen
+\setlength{\leftmargini}{ 2.5cm }
+
+% Folgende Felder für die Arbeit anpassen
+\title{ (Titel der \\[0.5em] Seminararbeit) }
+\author{ (Autor) }
+\def \semester { (Semester) }
+\def \veranstaltungstyp { (Veranstaltungstyp }
+\def \veranstaltungstitel { Veranstaltungstitel) }
+\def \dozent { (Dozent/in) }
+\def \adresse { (Adresse, }
+\def \telefon { Telefonnummer }
+\def \mail { E-Mail) }
+\def \studienfaecher { (Fachverbindung mit Angaben HF/NF) }
+\def \fachsemester { (Fachsemester) }
+
+% Beginn des eigentlichen Dokuments
+\begin{document}
+
+% Titelseite muss nicht direkt geändert werden, sondern nur die
+% obigen Felder
+\begin{titlingpage}
+% Absatzbeginn nicht einrücken
+\noindent
+{\sffamily{\large
+Ludwig-Maximilians-Universität München \\
+Department für Anglistik und Amerikanistik \\
+\semester \\
+\veranstaltungstyp, \veranstaltungstitel \\
+\dozent \\[0.2\textheight]
+}
+\begin{center}
+{\Huge \thetitle } \\[0.1\textheight]
+{\Large \theauthor } \\[0.05\textheight]
+{\large
+\adresse \\ 
+Tel.: \telefon \\ 
+E-Mail: \mail \\
+\studienfaecher \\
+Fachsemester: \fachsemester
+}
+\end{center}
+}
+\end{titlingpage}
+
+% Inhaltsverzeichnis erstellen (*LaTex muss üblicherweise
+% zwei mal ausgeführt werden, bis das Verzeichnis aktualisiert
+% wird)
+\tableofcontents
+
+% Seitenzahl für das Inhaltsverzeichnis auf 1 setzen
+\clearpage \setcounter{page}{1} 
+\chapter{Kapitel}
+\section{Abschnitt}
+\subsection{Deutscher Unterabschnitt}
+\blindtext
+\subsection{Englischer Unterabschnitt}
+% Sprache auf Englisch ändern
+\begin{otherlanguage}{english}
+% Mehrzeiliges, eingerücktes Zitat
+\begin{quoting}
+\blindtext
+\end{quoting}
+\end{otherlanguage}
+\subsection{Wieder deutscher Unterabschnitt}
+\blindtext
+% Beispiel für ein mehrweiliges, abgesetzt zitiertes Gedicht/Lied
+\subsection{Verse-Umgebung}
+\settowidth{\versewidth}{In a cavern, in a canyon,}
+\poemtitle*{Clementine}
+\begin{verse}[\versewidth]
+\poemlines{2}
+\begin{altverse}
+\flagverse{1.} In a cavern, in a canyon, \\
+Excavating for a mine, \\
+Lived a miner, forty-niner, \label{vs:49} \\
+And his daughter, Clementine. \\!
+\end{altverse}
+
+\begin{altverse}
+\flagverse{\textsc{chorus}} Oh my darling, Oh my darling, \\
+Oh my darling Clementine. \\
+Thou art lost and gone forever, \\
+Oh my darling Clementine
+\end{altverse}
+
+\end{verse}
+% Abschnitt verschiedenster Zitierweisen
+\subsection{Zitierweisen}
+Liste von Zitaten aus Sekundärquellen: Nummer 1 \parencite[][56-59]{Culler1997}, Nummer 2 \parencite[][103]{Baugh2002} , Nummer 3 \cite*[][]{Schabert2000}, Nummer 4 \Cite[][]{Crenshaw1995} , Nummer 5\footcite[][2: 117]{Huehn1995}, Nummer 6 \textcite[][290-297]{Kastovsky1992}, Nummer 7 \parencite[][587]{Wimsatt1959},  Nummer 8 \parencite[][5]{Jones1989} und Nummer 8 \parencite{Willey2003}
+
+Liste von Zitaten aus Primärquellen: Nummer 1\footcite[][35]{Banville2005}, Nummer 2\footcite[][56]{Austen1813}. Nummer 3\footcite[][72]{Wrenn1996}, Nummer 4\footcite[][117]{McEwan1975}, Nummer 5\footcite[][1. 11-16]{Eliot2000}, Nummer 6\footcite[][1.5.189-190]{Shakespeare1985} und Nummer 7\footcite[][1:14:12]{Coppola1992}
+% Die Bibliographie aufgeteilt anhand von Schlüsselwörtern, die auch im keyword-Feld der BibTex-Datei verwendet werden müssen
+\chapter{Bibliographie}
+\printbibliography[keyword=Primaerquelle,heading=subbibliography,title={Primärquellen}]
+\printbibliography[keyword=Sekundaerquelle,heading=subbibliography,title={Sekundärquellen}]
+%\printbibliography
+\end{document}
