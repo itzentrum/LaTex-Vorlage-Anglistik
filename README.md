@@ -6,7 +6,10 @@ Das Stilblatt ist hier zu finden:
 http://www.anglistik.uni-muenchen.de/service_downloads/allgemeine_handouts/stilblatt.doc
 Es werden folgende Pakete benötigt:
 - KOMA-Klassen
+- csquotes
 - iftex
+- setspace
+- titling
 - verse
 - quoting
 - verse
